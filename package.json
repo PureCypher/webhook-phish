@@ -1,0 +1,25 @@
+{
+  "name": "webhook-phish",
+  "version": "1.0.0",
+  "description": "Phishing simulation for SOC testing purposes only",
+  "main": "redirector.js",
+  "scripts": {
+    "start": "node redirector.js"
+  },
+  "keywords": [
+    "security",
+    "testing",
+    "phishing",
+    "soc"
+  ],
+  "author": "SOC Team",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
