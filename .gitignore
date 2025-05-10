@@ -36,3 +36,21 @@ coverage/
 *.swp
 *.swo
 .DS_Store
+
+# Project specific
+# Prevent accidental commit of real webhook endpoints
+webhook-config.json
+webhook-urls.js
+**/webhook-urls.js
+
+# Local test data
+test-credentials.json
+test-tokens.json
+
+# Generated files
+captured-data/
+simulation-logs/
+
+# Backup files
+*.bak
+*~
