@@ -1,6 +1,6 @@
 # Webhook Phishing PoC
 
-⚠️ **IMPORTANT: This is a proof-of-concept (PoC) for SOC testing ONLY. Do not use in production or against real users.**
+⚠️ **THIS TOOLKIT IS FOR SOC PHISHING SIMULATION ONLY. DO NOT DEPLOY IN PRODUCTION.** ⚠️
 
 This project demonstrates a simulated phishing campaign using a webhook-based redirector for security operation centers (SOCs) to test detection and response capabilities.
 
@@ -16,11 +16,26 @@ This project demonstrates a simulated phishing campaign using a webhook-based re
      - POSTs this data to a configurable webhook
      - Redirects the victim to the phishing page
 
-3. **Phishing Page (`merged-phishing.html`)**
+3. **Phishing Page (`index.html`)**
    - Fake Microsoft 365 login page
    - Captures credentials and session tokens
    - Encodes and exfiltrates them via webhook
    - Redirects to the legitimate site
+
+4. **Session & Token Hijacking (`index.html`)**
+   - Captures query string tokens (token, session, id)
+   - Extracts local/session storage values (auth_token)
+   - Harvests cookies (document.cookie)
+   - Exfiltrates all values to Discord webhook
+
+5. **Consent Phishing Simulation (`consent.html`)**
+   - Mimics Microsoft OAuth consent screen
+   - Includes fake scopes like Mail.Read, offline_access
+   - Logs consent grant and fake refresh token to webhook
+
+6. **Browser-in-the-Browser (BitB) Simulation (`bitb.html`)**
+   - Mimics Microsoft login in a fake popup inside the browser window
+   - Simulates a user entering credentials into a spoofed SSO window
 
 ## Setup Instructions
 
@@ -49,8 +64,9 @@ This project demonstrates a simulated phishing campaign using a webhook-based re
    - Open `redirector.js` and update these variables:
      - `METADATA_WEBHOOK_URL`: Discord webhook for visitor tracking data
      - `CREDENTIALS_WEBHOOK_URL`: Discord webhook for captured credentials (can be same or different)
-   - Open `merged-phishing.html` and update:
+   - Open `index.html` and update:
      - `WEBHOOK_URL`: Should match the `CREDENTIALS_WEBHOOK_URL` from redirector.js
+   - For consent.html and bitb.html, update the same webhook URL variables
 
 4. Start the server
    ```
@@ -60,6 +76,11 @@ This project demonstrates a simulated phishing campaign using a webhook-based re
 5. Access the email template
    - Open `email.html` in a browser to preview
    - The link will point to http://localhost:3000/?id=test123
+   
+6. Testing with query parameters
+   - Test token exfiltration: http://localhost:3000/webhook/redirect?id=123&token=fakeToken123
+   - Test consent phishing: http://localhost:3000/consent
+   - Test BitB simulation: http://localhost:3000/bitb
 
 ## Testing Workflow
 
@@ -91,7 +112,7 @@ This project uses Discord webhooks to exfiltrate data, which is a common techniq
    - Create a private channel specifically for testing
    - Delete webhooks after testing is complete
 
-## Detection Opportunities
+## SOC Detection Tips
 
 This PoC can help SOCs test detection capabilities for:
 
@@ -100,6 +121,35 @@ This PoC can help SOCs test detection capabilities for:
 - Discord webhook exfiltration of data (increasingly common in real attacks)
 - Base64 encoding of sensitive information
 - Fake login pages mimicking legitimate services
+- Session or token exfiltration via POST requests
+- User-agent cloaking techniques
+- Non-standard cookies/localStorage access patterns
+- OAuth consent phishing attempts
+- Browser-in-the-Browser (BitB) attacks
+
+### Session & Token Hijacking Detection
+
+Look for:
+- JavaScript accessing multiple storage mechanisms (localStorage, sessionStorage, cookies)
+- Extraction of URL parameters containing sensitive keywords (token, session, auth)
+- POST requests containing encoded token data
+- History manipulation (history.replaceState) to hide URL parameters
+
+### Consent Phishing Detection
+
+Look for:
+- Fake OAuth consent screens requesting excessive permissions
+- Unusual redirect patterns after consent grant
+- Exfiltration of refresh tokens via webhooks
+- Suspicious application names or mismatched domains
+
+### Browser-in-the-Browser Detection
+
+Look for:
+- Nested browser windows with fake address bars
+- DOM manipulation creating fake UI elements
+- Mouse/keyboard event capturing within specific screen regions
+- Unusual iframe usage or window positioning
 
 ## Security Notice
 
