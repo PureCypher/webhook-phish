@@ -47,7 +47,7 @@ This project demonstrates a simulated phishing campaign using a webhook-based re
 
 1. Clone this repository
    ```
-   git clone https://github.com/yourusername/webhook-phish.git
+   git clone https://github.com/purecypher/webhook-phish.git
    cd webhook-phish
    ```
 

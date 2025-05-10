@@ -1,10 +1,10 @@
 {
-  "name": "webhook-phish",
+  "name": "webhook-phishing-simulation",
   "version": "1.0.0",
   "description": "Phishing simulation for SOC testing purposes only",
-  "main": "redirector.js",
+  "main": "webhook.js",
   "scripts": {
-    "start": "node redirector.js"
+    "start": "node webhook.js"
   },
   "keywords": [
     "security",
