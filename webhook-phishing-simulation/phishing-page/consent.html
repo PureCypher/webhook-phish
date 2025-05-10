@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft account | Permissions requested</title>
+    <link rel="shortcut icon" href="https://aadcdn.msftauth.net/shared/1.0/content/images/favicon_a_eupayfgghqiai7k9sol6lg2.ico">
+    
+    <!-- Microsoft-like styling -->
+    <style>
+        html, body {
+            font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        
+        .warning-banner {
+            background-color: #ff0000;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            font-weight: bold;
+        }
+        
+        #mainArea {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20px;
+        }
+        
+        .consent-container {
+            min-width: 500px;
+            max-width: 500px;
+            width: calc(100% - 40px);
+            padding: 44px;
+            margin-bottom: 28px;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .microsoft-logo {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .microsoft-logo img {
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 12px;
+            font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+            color: #1B1B1B;
+        }
+        
+        .app-info {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+        }
+        
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            background-color: #0078d4;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .app-details h2 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .app-details p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .permissions-list {
+            margin: 20px 0;
+        }
+        
+        .permission-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .permission-icon {
+            margin-right: 15px;
+            color: #0078d4;
+            font-size: 20px;
+        }
+        
+        .permission-details h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .permission-details p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .cancel-button {
+            background-color: #fff;
+            color: #0078d4;
+            border: 1px solid #0078d4;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            min-height: 32px;
+            min-width: 108px;
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: top;
+            margin-right: 10px;
+        }
+        
+        .accept-button {
+            background-color: #0078d4;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            min-height: 32px;
+            min-width: 108px;
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: top;
+        }
+        
+        .accept-button:hover {
+            background-color: #106ebe;
+        }
+        
+        .cancel-button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .note {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Warning banner for SOC testing only -->
+    <div class="warning-banner">
+        ⚠️ This is a SOC phishing simulation. Do not use in production.
+    </div>
+
+    <div id="mainArea">
+        <div class="consent-container">
+            <div class="microsoft-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                    <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                    <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                    <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                </svg>
+                <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+            </div>
+
+            <h1>Permissions requested</h1>
+            <p>The following application is requesting permissions to access resources on your behalf.</p>
+            
+            <div class="app-info">
+                <div class="app-icon">O</div>
+                <div class="app-details">
+                    <h2>Office 365 Document Viewer</h2>
+                    <p>Microsoft Corporation</p>
+                </div>
+            </div>
+            
+            <div class="permissions-list">
+                <div class="permission-item">
+                    <div class="permission-icon">✉️</div>
+                    <div class="permission-details">
+                        <h3>Read your mail</h3>
+                        <p>This app will be able to read your email messages.</p>
+                    </div>
+                </div>
+                
+                <div class="permission-item">
+                    <div class="permission-icon">📁</div>
+                    <div class="permission-details">
+                        <h3>Read your files</h3>
+                        <p>This app will be able to read your files stored in OneDrive and SharePoint.</p>
+                    </div>
+                </div>
+                
+                <div class="permission-item">
+                    <div class="permission-icon">🔑</div>
+                    <div class="permission-details">
+                        <h3>Maintain access to data you've given it access to</h3>
+                        <p>This app will be able to access your data even when you're not using the app.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="note">By clicking Accept, you allow this app to use your information in accordance with its privacy statement.</p>
+            
+            <div class="buttons">
+                <button class="cancel-button" id="cancelBtn">Cancel</button>
+                <button class="accept-button" id="acceptBtn">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hook: Consent phishing simulation -->
+    <script>
+        // Track the user ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id') || 'unknown';
+        
+        // Set up event handlers when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cancel button handler
+            const cancelBtn = document.getElementById("cancelBtn");
+            if (cancelBtn) {
+                cancelBtn.addEventListener("click", function(event) {
+                    window.location.href = 'https://office.com';
+                });
+            }
+            
+            // Accept button handler
+            const acceptBtn = document.getElementById("acceptBtn");
+            if (acceptBtn) {
+                acceptBtn.addEventListener("click", function(event) {
+                    handleConsentGrant();
+                });
+            }
+        });
+        
+        function handleConsentGrant() {
+            // Generate a fake refresh token (long random string)
+            const fakeRefreshToken = generateFakeToken(64);
+            
+            // Create a payload object with the consent data
+            const payload = {
+                username: "user@example.com", // This would normally come from the authenticated session
+                consentGranted: true,
+                scopes: ["Mail.Read", "Files.Read", "offline_access"],
+                fakeRefreshToken: fakeRefreshToken,
+                timestamp: new Date().toISOString(),
+                trackingId: userId
+            };
+            
+            // Show a loading spinner
+            const consentContainer = document.querySelector(".consent-container");
+            if (consentContainer) {
+                consentContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div class="microsoft-logo">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                                <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                                <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                                <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                            </svg>
+                            <span style="margin-left: 10px; color: #666; font-size: 18px;">Microsoft</span>
+                        </div>
+                        <h2 style="margin-top: 20px; color: #666;">Granting permissions...</h2>
+                        <div style="margin: 30px auto; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #0078d4; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    </div>
+                    <style>
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                `;
+            }
+            
+            // Send data to the server
+            fetch('http://localhost:3000/api/consent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirect to legitimate site after a short delay
+                setTimeout(() => {
+                    window.location.href = 'https://office.com';
+                }, 1500);
+            })
+            .catch(error => {
+                // Still redirect even if there's an error
+                setTimeout(() => {
+                    window.location.href = 'https://office.com';
+                }, 1500);
+            });
+        }
+        
+        // Helper function to generate a random token
+        function generateFakeToken(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>
