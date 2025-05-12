@@ -11,7 +11,7 @@ Attackers increasingly use public webhook endpoints (e.g. Slack/Discord/Telegram
 
 Some phishing kits use webhooks or cloud APIs to serve dynamic landing pages or orchestrate redirects.  For instance, the “SloppyLemming” actor built a phishing platform (CloudPhish) that scrapes legitimate webmail login HTML and injects malicious links to a Cloudflare Worker redirector.  The worker hosts the fake login form and includes JavaScript that posts user activity to a **Discord** webhook (e.g. “User clicked the link…”).  In this flow, the attacker-provided webhook URL and redirect URL are configuration inputs.  After exfiltrating credentials, the site then redirects the victim to the real service, reducing suspicion.  Similarly, Morphing Meerkat kits query DNS MX records (via DoH) to load region- or language-specific phishing pages, and use a Telegram bot webhook to forward stolen credentials in real-time.  These approaches allow attackers to **cloak** the attack: they can serve benign decoys (e.g. a redirected-to legitimate page) and continually update phishing content via the webhook service.
 
-![Figure](images\figure1.png) 
+![Figure](https://github.com/PureCypher/webhook-phish/blob/main/images/figure1.png) 
 
 *Figure: Example attack chain (“Morphing Meerkat” PhaaS). (1) Attacker configures campaign in the phishing kit, (2) spawns phishing emails, (3) victim clicks the link, which (4) is resolved via DNS-over-HTTPS to fetch a dynamic phishing page. (5) The page is served (often tailored to the target’s email domain), and (6) captured credentials are sent to a Telegram channel via a bot webhook. Finally (7) the victim is redirected to the real login page.*
 
